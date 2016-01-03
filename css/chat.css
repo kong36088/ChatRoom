@@ -1,0 +1,23 @@
+.footer{
+	width:100%;
+	height:auto;
+	position: fixed;
+	bottom:0px;
+}
+#content{
+	padding-right:1%;
+	padding-left: 1%;
+	margin-bottom:10%;
+	width:100%;
+	word-wrap:break-word;
+}
+.ui-dialog{
+}
+.username{
+	color:green;
+	font-size:20px;
+}
+.message{
+	color:black;
+	font-size:20px;
+}
