@@ -72,8 +72,8 @@ class Server
 	public function onOpen($server, $request)
 	{
 		$this->clients[$request->fd] = '';
-		echo $request->fd . ' connect'.' IP:' . $request->server['remote_addr'] . PHP_EOL;
-		write_log($request->fd . ' connect'.' IP:' . $request->server['remote_addr'], 'info');
+		echo $request->fd . ' connect' . ' IP:' . $request->server['remote_addr'] . PHP_EOL;
+		write_log($request->fd . ' connect' . ' IP:' . $request->server['remote_addr'], 'info');
 	}
 
 	/**
@@ -130,7 +130,7 @@ class Server
 	 * @param object $server swoole server对象
 	 * @param $task_id
 	 * @param $from_id
-	 * @param object $frame 包含frame的信息，并且$frame->data保存了调用task传过来的参数
+	 * @param object $frame 包含frame的信息，并且$frame->data保存了调用task传过来的参数,并且$frame->clients保存当前的clients信息
 	 * @return string
 	 */
 	public function broadcast($server, $task_id, $from_id, $frame)
@@ -164,28 +164,22 @@ class Server
 	{
 		echo "{$fd} closed" . PHP_EOL;
 		$username = $this->clients[$fd];
-
 		//释放客户，利用锁进行数据同步
 		$this->lock->lock();
 		unset($this->clients[$fd]);
 		$this->lock->unlock();
 
-		$frame = new stdClass ();
-		$frame->fd = $fd;
-		$frame->data = array('message' => $username . '离开聊天室', 'type' => 1, 'status' => 1, 'time' => date('H:i:s'));
-		// 发送离开消息
-		$server->task($frame);
+		//有用户名的用户则推送离开消息
+		if (!empty($username)) {
+			$frame = new stdClass ();
+			$frame->fd = $fd;
+			$frame->data = array('username' => $username, 'message' => $username . '离开聊天室', 'type' => 1, 'status' => 1, 'time' => date('H:i:s'));
+			$frame->clients = $this->clients;
+			// 发送离开消息
+			$server->task($frame);
+		}
 	}
 
-	/**
-	 * 写log
-	 * @param string $message 记录内容-
-	 * @param string $level 记录等级
-	 */
-	public function log($message, $level = 'info')
-	{
-
-	}
 }
 
 $Server = new Server ();
