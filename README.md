@@ -1,10 +1,12 @@
 # ChatRoom
+本应用是一个在线聊天室。利用了swoole高并发并且异步非阻塞的特点提高了程序的性能。
+该应用需要swoole拓展的支持。
+
+# 安装
+
 安装PHP`swoole`拓展：`pecl install swoole`
 
 或到[swoole官网](http://www.swoole.com/)获取安装帮助
-
-本应用是一个在线聊天室。利用了swoole高并发并且异步非阻塞的特点提高了程序的性能。
-该应用需要swoole拓展的支持。
 
 Demo: [聊天室](http://chat.jwlchina.cn)
 
