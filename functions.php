@@ -5,6 +5,7 @@
  * Date: 2016/11/9
  * Time: 21:56
  */
+define('ROOT_PATH', dirname(__FILE__));
 
 if (!function_exists('write_log')) {
 	/**
@@ -17,22 +18,19 @@ if (!function_exists('write_log')) {
 		switch ($level) {
 			case 'INFO':
 			case 'info':
-				$fp = fopen('./logs/' . date('Y_m_d') . '.log', 'a+');
-				@fputs($fp, (string)$message . PHP_EOL);
-				fclose($fp);
+				$filename = ROOT_PATH . '/logs/' . date('Y_m_d') . '.log';
 				break;
 			case 'ERROR':
 			case 'error':
-				$fp = fopen('./logs/' . date('Y_m_d') . '.error.log', 'a+');
-				@fputs($fp, (string)$message . PHP_EOL);
-				fclose($fp);
+				$filename = ROOT_PATH . '/logs/' . date('Y_m_d') . '.error.log';
 				break;
 			default:
-				$fp = fopen('./logs/' . date('Y_m_d') . '.log', 'a+');
-				@fputs($fp, $level . ':' . PHP_EOL . (string)$message . PHP_EOL);
-				fclose($fp);
+				$filename = ROOT_PATH . '/logs/' . date('Y_m_d') . '.log';
 				break;
 		}
+		$fp = fopen($filename, 'a');
+		@fwrite($fp, (string)$message . PHP_EOL);
+		fclose($fp);
 
 	}
 }

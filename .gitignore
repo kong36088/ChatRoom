@@ -1,5 +1,5 @@
 .DS_Store
 
-logs/*.log
+logs/*
 settings/*
 .idea/*
