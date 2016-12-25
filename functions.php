@@ -28,9 +28,12 @@ if (!function_exists('write_log')) {
 				$filename = ROOT_PATH . '/logs/' . date('Y_m_d') . '.log';
 				break;
 		}
+		flock($fp, LOCK_EX);
+		
 		$fp = fopen($filename, 'a');
 		@fwrite($fp, (string)$message . PHP_EOL);
 		fclose($fp);
-
+		
+		flock($fp, LOCK_UN);
 	}
 }
