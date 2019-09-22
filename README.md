@@ -63,3 +63,11 @@ apache
 
 我的swoole docker镜像地址:[swoole镜像](https://hub.docker.com/r/kong36088/nginx-php7-swoole/)
 里面有该镜像的详细使用说明
+
+# 捐赠
+
+您的支持是对我的最大鼓励！
+谢谢你请我吃糖
+![wechatpay](https://raw.githubusercontent.com/kong36088/kong36088.github.io/master/uploads/site/wechat-pay.png)
+![alipay](https://raw.githubusercontent.com/kong36088/kong36088.github.io/master/uploads/site/zhifubao.jpg)
+
